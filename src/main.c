@@ -12,17 +12,16 @@
 
 #include "fractol.h"
 
-
 t_str		init_str(t_str *str, char *fractol)
 {
 	str->fractol = (t_fractol *)malloc(sizeof(t_fractol));
-	str->map.width = 500;//2400;
-	str->map.height = 500; //1200;
 	str->fractol->type = ft_strequ(fractol, "Julia") ? 1 :
 			(ft_strequ(fractol, "Mandelbrot") ? 2 : ft_strequ(fractol, "Turtle") ?
 			3 : 4);
-	str->iteration = 100;
-	str->iter_lim = 100;
+	if (str->fractol->type == 1)
+		initialize_julia(str->fractol);
+	else
+		initialize_mandel(str->fractol);
 	str->x_alfa = 0.1;
 	str->y_alfa = 0.0;
 	str->z_alfa = 0.0;
@@ -32,7 +31,7 @@ t_str		init_str(t_str *str, char *fractol)
 void		draw_str(t_str str)
 {
 	str.map.mlx = mlx_init();
-	str.map.win = mlx_new_window(str.map.mlx, str.map.width, str.map.height,
+	str.map.win = mlx_new_window(str.map.mlx, WIN_WIDTH, WIN_HEIGHT,
 			"Fractol");
 	draw(&str);
 	mlx_hook(str.map.win, 2, 0, key_pressed, &str);
@@ -41,7 +40,7 @@ void		draw_str(t_str str)
 	mlx_loop(str.map.mlx);
 }
 
-int whoops(int i)
+int			whoops(int i)
 {
 	if (i == 1)
 		ft_putstr_fd("usage: fractol [fractals]\n fractals:\n"
@@ -66,7 +65,6 @@ int			main(int argc, char **argv)
 	if (argc != 2 || !ft_check_name(argv[1]))
 		return (whoops(1));
 	init_str(&str, argv[1]);
-	//work_coords(str);
 	draw_str(str);
 	return (0);
 }

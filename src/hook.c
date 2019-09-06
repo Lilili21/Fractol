@@ -71,6 +71,12 @@ int		key_pressed(int keycode, t_str *str)
 		mlx_clear_window(str->map.mlx, str->map.win);
 		draw(str, 1);
 	}
+	else if (keycode == 279)
+	{
+		str->color_style = (str->color_style > 4) ? 0 : str->color_style + 1;
+		mlx_clear_window(str->map.mlx, str->map.win);
+		draw(str, 1);
+	}
 	else
 		key_move(keycode, str);
 	return (0);

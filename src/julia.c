@@ -12,41 +12,37 @@
 
 #include "fractol.h"
 
-void julia(t_fractol	*julia, t_str *str)
+void	initialize_julia(t_fractol *j)
 {
-	float tmp;
-	int i;
-	float zr;
-	float zi;
-	float x1;
-	float y1;
+	init_complex(-1.5, -1.2, &(j->min));
+	init_complex(1.2, 1.2, &(j->max));
+	init_complex(0.285, 0.01, &(j->c));
+	j->iter = 75;
+}
 
-	julia->c_real = -0.8;
-	julia->c_imaginary = 0.156;
-	julia->zoom = 1;
+void	julia(t_fractol *j, t_str *str)
+{
+	int		i;
+	double	tmp;
 
-	for (int x = 0; x < str->map.width; x++)
+	j->xy.re = -1;
+	while (++j->xy.re < IMG_WIDTH)
 	{
-		for (double y = 0; y < str->map.height; y++)
+		j->xy.im = -1;
+		while (++j->xy.im < IMG_HEIGHT)
 		{
-			zr = 1.5 * (x - (int)(str->map.width / 2)) / (0.5 * julia->zoom * str->map.width);
-			zi = 1.0 * (y - (int)(str->map.height / 2)) / (0.5 * julia->zoom * str->map.height);
-			i = str->iteration;
-			while (zr * zr + zi * zi < 4 && i > 1)
+			init_complex(j->xy.re * (j->max.re - j->min.re) / IMG_WIDTH +
+			j->min.re, j->xy.im * (j->max.im - j->min.im) / IMG_HEIGHT +
+			j->min.im, &(j->z));
+			i = 0;
+			while (i++ < j->iter && pow(j->z.re, 2) + pow(j->z.im, 2) < 4)
 			{
-				tmp = zr * zr - zi * zi + julia->c_real;
-				zi = 2.0 * zr * zi + julia->c_imaginary;
-				zr = tmp;
-				i -= 1;
+				tmp = j->z.re;
+				j->z.re = pow(j->z.re, 2) - pow(j->z.im, 2) + j->c.re;
+				j->z.im = 2 * j->z.im * tmp + j->c.im;
 			}
-			x1 -= str->map.width/2 * 0.1;
-			y1 -= str->map.height/2 * 0.1;
-			x1 = cos(str->y_alfa) * cos(str->z_alfa) * x + cos(str->y_alfa) * sin(str->z_alfa) * y;
-			y1 = (-sin(str->x_alfa) * sin(str->y_alfa) * cos(str->z_alfa) -
-				  cos(str->x_alfa) * sin(str->z_alfa)) * x + (cos(str->x_alfa) * cos(str->z_alfa) - sin(str->x_alfa) * sin(str->y_alfa) * sin(str->z_alfa)) * y;
-			x1 += str->map.width/2 * 0.1;
-			y1 +=  str->map.height/2 * 0.1;
-			put_data(str, x1, y1,  choose_col(str, i));
+			put_data(str, (int)(j->xy.re), (int)(j->xy.im),
+			choose_col_b(i, j->iter));
 		}
 	}
 }
