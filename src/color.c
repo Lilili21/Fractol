@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-char		*color_scheme(int scheme, int color_p)
+char			*color_scheme(int scheme, int color_p)
 {
 	int i;
 
@@ -33,7 +33,7 @@ char		*color_scheme(int scheme, int color_p)
 	return (ft_strjoin("noise ", ft_itoa(i)));
 }
 
-t_color		*color_percent(int color_type)
+static t_color	*color_percent(int color_type)
 {
 	t_color *color;
 
@@ -57,7 +57,7 @@ t_color		*color_percent(int color_type)
 	return (color);
 }
 
-int			choose_col(float iter, float max_iter, int color_type, int mad)
+int				choose_col(float iter, float max_iter, int color_type, int mad)
 {
 	int			r;
 	int			g;

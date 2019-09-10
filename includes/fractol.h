@@ -26,7 +26,7 @@
 # define IMG_H 600
 # define NB_THREADS 4
 # define BUT_ESCAPE 53
-# define BUT_DELETE 51
+# define BUT_DEL 51
 # define BUT_UP 126
 # define BUT_RIGHT 124
 # define BUT_DOWN 125
@@ -102,12 +102,13 @@ int		whoops(int i);
 void	init_complex(double re, double im, t_complex *complex);
 int 	ft_check_name(char *str);
 int		ft_check_name2(char *fractol);
-int		ft_close(void *param);
 int		key_pressed(int keycode, t_str *str);
 int		choose_col(float iter, float max_iter, int color_type, int mad);
 char 	*color_scheme(int scheme, int color_p);
 void	fractol(t_fractol	*f, t_str *str);
 void	init_fr(t_fractol *f, int i);
+int 	change_fractol(int keycode, t_str *str);
+int		ft_close(void *param);
 int		mouse_pressed(int button, int mousex, int mousey, t_str *str);
 int		motion_notify(int mousex, int mousey, t_str *str);
 void	put_data(t_str *str, int x, int y, int color);

@@ -12,13 +12,13 @@
 
 #include "fractol.h"
 
-int		ft_close(void *param)
+int			ft_close(void *param)
 {
 	(void)param;
 	exit(0);
 }
 
-int		m_zoom(int button, int mousex, int mousey, t_str *str)
+static int	m_zoom(int button, int mousex, int mousey, t_str *str)
 {
 	t_complex k;
 
@@ -46,24 +46,15 @@ int		m_zoom(int button, int mousex, int mousey, t_str *str)
 	return (0);
 }
 
-int		mouse_pressed(int button, int mousex, int mousey, t_str *str)
+int			mouse_pressed(int button, int mousex, int mousey, t_str *str)
 {
-	/*if ((button == MOUSE_SC_UP || MOUSE_SC_DOWN) && str->fract->type == 1
-	&& str->fract->space_pressed == 1)
-	{
-		str->fract->c.re += (button == MOUSE_SC_UP) ? 0.0001 : -0.0001;
-		str->fract->c.im += (button == MOUSE_SC_UP) ? 0.0001 : -0.0001;
-		mlx_clear_window(str->map.mlx, str->map.win);
-		draw(str);
-	}*/
 	if (button == MOUSE_SC_LEFT || button == MOUSE_SC_RIGHT ||
 	button == MOUSE_SC_UP || button == MOUSE_SC_DOWN)
 		return (m_zoom(button, mousex, mousey, str));
 	return (0);
 }
 
-
-int		motion_notify(int mousex, int mousey, t_str *str)
+int			motion_notify(int mousex, int mousey, t_str *str)
 {
 	if (str->fract->type == 1 && str->fract->space_pressed == 1)
 	{

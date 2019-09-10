@@ -12,7 +12,24 @@
 
 #include "fractol.h"
 
-void	init_fr(t_fractol *f, int i)
+int			change_fractol(int keycode, t_str *str)
+{
+	if (keycode == BUT_DEL)
+		str->fract->type = (str->fract->type == 6) ? 1 : ++str->fract->type;
+	else if (keycode - 17 != str->fract->type && keycode < BUT_6)
+		str->fract->type = keycode - 17;
+	else if (keycode == BUT_6 && str->fract->type != 6)
+		str->fract->type = 6;
+	else if (keycode == BUT_5 && str->fract->type != 5)
+		str->fract->type = 5;
+	(str->fract->type == 1) ? init_fr(str->fract, 0) :
+	init_fr(str->fract, 1);
+	mlx_clear_window(str->map.mlx, str->map.win);
+	draw(str);
+	return (0);
+}
+
+void		init_fr(t_fractol *f, int i)
 {
 	if (i == 0)
 	{
@@ -33,7 +50,7 @@ void	init_fr(t_fractol *f, int i)
 	}
 }
 
-int		count(t_fractol *f, int i)
+static int	count(t_fractol *f, int i)
 {
 	double	tmp;
 
@@ -49,7 +66,7 @@ int		count(t_fractol *f, int i)
 	return (++i);
 }
 
-void	fractol(t_fractol *f, t_str *str)
+void		fractol(t_fractol *f, t_str *str)
 {
 	int		i;
 
