@@ -22,43 +22,46 @@
 
 # define WIN_WIDTH 1100
 # define WIN_HEIGHT 600
-# define IMG_WIDTH  700//1400
-# define IMG_HEIGHT 600//1200
+# define IMG_W 700
+# define IMG_H 600
 # define NB_THREADS 4
-# define BUTTON_ESCAPE 53
-# define BUTTON_DELETE 51
-# define BUTTON_W 13
-# define BUTTON_D 2
-# define BUTTON_S 1
-# define BUTTON_A 0
-# define BUTTON_Q 12
-# define BUTTON_E 14
-# define BUTTON_B 11
-# define BUTTON_C 8
-# define BUTTON_ARROW_UP 126
-# define BUTTON_ARROW_RIGHT 124
-# define BUTTON_ARROW_DOWN 125
-# define BUTTON_ARROW_LEFT 123
-# define MOUSE_LEFT 1
-# define MOUSE_RIGHT 2
-# define MOUSE_WHEEL_UP 5
-# define MOUSE_WHEEL_DOWN 4
+# define BUT_ESCAPE 53
+# define BUT_DELETE 51
+# define BUT_UP 126
+# define BUT_RIGHT 124
+# define BUT_DOWN 125
+# define BUT_LEFT 123
+# define BUT_PLUS 24
+# define BUT_MINUS 27
+# define BUT_N_UP 91
+# define BUT_N_RIGHT 88
+# define BUT_N_DOWN 84
+# define BUT_N_LEFT 86
+# define BUT_N_PLUS 69
+# define BUT_N_MINUS 78
+# define BUT_1 18
+# define BUT_2 19
+# define BUT_3 20
+# define BUT_4 21
+# define BUT_5 23
+# define BUT_6 22
+# define BUT_7 26
+# define BUT_SPACE 49
+# define CHEKSUM2(a, b) (a*a + b*b)
+# define CHEKDIF2(a, b) (a*a - b*b)
+# define MOUSE_SC_UP 5
+# define MOUSE_SC_DOWN 4
+# define MOUSE_SC_LEFT 6
+# define MOUSE_SC_RIGHT 7
 
 typedef struct	s_map
 {
 	void		*img;
-	int		*data;
+	int			*data;
 	void		*mlx;
 	void		*win;
 	int			trash;
 }				t_map;
-
-typedef struct	s_mouse
-{
-	int 		m_pressed;
-	int			m_x;
-	int			m_y;
-}				t_mouse;
 
 typedef struct s_complex
 {
@@ -66,60 +69,47 @@ typedef struct s_complex
 	double 		im;
 }				t_complex;
 
+typedef struct s_color
+{
+	double 		r_percent;
+	double 		g_percent;
+	double 		b_percent;
+}				t_color;
+
 typedef struct s_fractol
 {
 	int			type;
+	int			iter;
+	int 		color;
+	int 		color_mad;
+	int 		space_pressed;
 	t_complex	min;
 	t_complex	max;
 	t_complex	c;
-	t_complex	xy;
 	t_complex	z;
+	t_complex	xy;
 	t_complex	zoom;
-	int			iter;
-	float 		t_rotate;
-}				t_fractol;
 
-typedef struct s_color
-{
-	int			cent;
-	int			wid;
-	float		r_freq;
-	float		g_freq;
-	float		b_freq;
-	float		r_phase;
-	float		g_phase;
-	float		b_phase;
-}				t_color;
+}				t_fractol;
 
 typedef struct	s_str
 {
 	t_map		map;
-	t_mouse		mouse;
-	t_fractol	*fractol;
-	t_color		c;
-	int			color_style;
-	int			psychedelic;
-	float		x_alfa;
-	float		y_alfa;
-	float		z_alfa;
-
+	t_fractol	*fract;
 }				t_str;
 
-
-
-void	draw(t_str *str);
 int		whoops(int i);
-int		ft_close(void *param);
-void	put_data(t_str *str, int x, int y, int color);
-int		key_pressed(int keycode, t_str *str);
-int		choose_col_b(float iter, float max_iter);
-int		choose_col_g(float iter, float max_iter);
-int		choose_col_y(float iter, float max_iter);
-int		choose_col_r(float iter, float max_iter);
-void	julia(t_fractol *julia, t_str *str);
-void	initialize_julia(t_fractol *j);
-void	mandelbrot(t_fractol	*m, t_str *str);
-void	initialize_mandel(t_fractol *m);
-void	rotate(t_fractol *fractol);
 void	init_complex(double re, double im, t_complex *complex);
+int 	ft_check_name(char *str);
+int		ft_check_name2(char *fractol);
+int		ft_close(void *param);
+int		key_pressed(int keycode, t_str *str);
+int		choose_col(float iter, float max_iter, int color_type, int mad);
+char 	*color_scheme(int scheme, int color_p);
+void	fractol(t_fractol	*f, t_str *str);
+void	init_fr(t_fractol *f, int i);
+int		mouse_pressed(int button, int mousex, int mousey, t_str *str);
+int		motion_notify(int mousex, int mousey, t_str *str);
+void	put_data(t_str *str, int x, int y, int color);
+void	draw(t_str *str);
 #endif

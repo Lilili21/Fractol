@@ -12,67 +12,66 @@
 
 #include "fractol.h"
 
-int		choose_col_b(float iter, float max_iter)
+char		*color_scheme(int scheme, int color_p)
 {
-	int		r;
-	int		g;
-	int		b;
-	double t;
+	int i;
 
-	if (iter >=max_iter)
-		return (0);
-	t = (double)iter / max_iter;
-	r = (int)(9 * (1 - t) * pow(t, 3) * 255);
-	g = (int)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
-	b = (int)(8.5 * pow((1 - t), 3) * t * 255);
-	return (r << 16 | g << 8 | b);
+	i = 1;
+	while (color_p >= 10)
+	{
+		color_p /= 10;
+		i++;
+	}
+	if (scheme == 0)
+		return (ft_strjoin("red ", ft_itoa(i)));
+	else if (scheme == 1)
+		return (ft_strjoin("green ", ft_itoa(i)));
+	else if (scheme == 2)
+		return (ft_strjoin("blue ", ft_itoa(i)));
+	else if (scheme == 3)
+		return (ft_strjoin("dark ", ft_itoa(i)));
+	return (ft_strjoin("noise ", ft_itoa(i)));
 }
 
-int		choose_col_g(float iter, float max_iter)
+t_color		*color_percent(int color_type)
 {
-	int		r;
-	int		g;
-	int		b;
-	double t;
+	t_color *color;
 
-	if (iter >=max_iter)
-		return (0);
-	t = (double)iter / max_iter;
-	r = (int)(9 * (1 - t) * pow(t, 3) * 255);
-	b = (int)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
-	g = (int)(8.5 * pow((1 - t), 3) * t * 255);
-	return (r << 16 | g << 8 | b);
+	color = (t_color *)malloc(sizeof(t_color));
+	if (color_type == 4)
+	{
+		color->r_percent = rand() % 20;
+		color->g_percent = rand() % 20;
+		color->b_percent = rand() % 20;
+		return (color);
+	}
+	color->r_percent = (color_type == 3) ? 0.33 : 0;
+	color->g_percent = (color_type == 3) ? 0.33 : 0;
+	color->b_percent = (color_type == 3) ? 0.33 : 0;
+	if (color_type == 0)
+		color->r_percent = 0.33;
+	if (color_type == 1)
+		color->g_percent = 0.33;
+	if (color_type == 2)
+		color->b_percent = 0.33;
+	return (color);
 }
 
-int		choose_col_y(float iter, float max_iter)
+int			choose_col(float iter, float max_iter, int color_type, int mad)
 {
-	int		r;
-	int		g;
-	int		b;
-	double t;
+	int			r;
+	int			g;
+	int			b;
+	t_color		*color;
+	double		t;
 
-	if (iter >=max_iter)
+	if (iter >= max_iter)
 		return (0);
+	color = color_percent(color_type);
 	t = (double)iter / max_iter;
-	b = (int)(9 * (1 - t) * pow(t, 3) * 255);
-	g = (int)(8.5 * pow((1 - t), 3) * t * 255);;
-	r = (int)(8.5 * pow((1 - t), 3) * t * 255);
+	r = (int)(mad * t * color->r_percent * 255);
+	g = (int)(mad * t * color->g_percent * 255);
+	b = (int)(mad * t * color->b_percent * 255);
+	free(color);
 	return (r << 16 | g << 8 | b);
 }
-
-int		choose_col_r(float iter, float max_iter)
-{
-	int		r;
-	int		g;
-	int		b;
-	double t;
-
-	if (iter >=max_iter)
-		return (0);
-	t = (double)iter / max_iter;
-	g = (int)(9 * (1 - t) * pow(t, 3) * 255);
-	b = (int)(15 * pow((1 - t), 2) * pow(t, 2) * 255);
-	r = (int)(8.5 * pow((1 - t), 3) * t * 255);
-	return (r << 16 | g << 8 | b);
-}
-
