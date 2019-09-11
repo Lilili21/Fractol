@@ -12,7 +12,18 @@
 
 #include "fractol.h"
 
-static t_str	init_str(t_str *str, char *fractol)
+static void 	init_thread()
+{
+	pthread_t thread_id;
+
+	printf("Before Thread\n");
+
+	pthread_join(thread_id, NULL);
+	printf("After Thread\n");
+	exit(0);
+}
+
+static void		init_str(t_str *str, char *fractol)
 {
 	str->fract = (t_fractol *)malloc(sizeof(t_fractol));
 	str->fract->type = ft_check_name2(fractol);
@@ -21,14 +32,12 @@ static t_str	init_str(t_str *str, char *fractol)
 	(str->fract->type == 1) ? init_fr(str->fract, 0)
 	: init_fr(str->fract, 1);
 	str->fract->space_pressed = 0;
-	return (*str);
 }
 
 static void		draw_str(t_str str)
 {
 	str.map.mlx = mlx_init();
-	str.map.win = mlx_new_window(str.map.mlx, WIN_WIDTH, WIN_HEIGHT,
-			"Fractol");
+	str.map.win = mlx_new_window(str.map.mlx, WIN_WIDTH, WIN_HEIGHT, "Fractol");
 	draw(&str);
 	mlx_hook(str.map.win, 2, 0, key_pressed, &str);
 	mlx_hook(str.map.win, 6, 0, &motion_notify, &str);
@@ -44,6 +53,7 @@ int				main(int argc, char **argv)
 	if (argc != 2 || !ft_check_name(argv[1]))
 		return (whoops(1));
 	init_str(&str, argv[1]);
+	//init_thread(&str);
 	draw_str(str);
 	return (0);
 }

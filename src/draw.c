@@ -56,7 +56,7 @@ static char		*name_fr(int i)
 		return ("Celtic Mandelbar");
 }
 
-static void		draw_commands(t_str *str)
+void		draw_commands(t_str *str)
 {
 	char		*tmp;
 
@@ -85,7 +85,38 @@ void			draw(t_str *str)
 	str->map.img = mlx_new_image(str->map.mlx, IMG_W, IMG_H);
 	str->map.data = (int *)mlx_get_data_addr(str->map.img, &(str->map.trash),
 	&(str->map.trash), &(str->map.trash));
-	fractol(str->fract, str);
+	fr_create_threads(str);
+	//fractol(str->fract, str);
 	draw_commands(str);
 	mlx_put_image_to_window(str->map.mlx, str->map.win, str->map.img, 400, 0);
 }
+/*
+void				*fr_draw_mandelbrot(void *arg)
+{
+	t_thread			*sthread;
+	t_mandelbrot		m;
+
+	sthread = (t_thread*)arg;
+	m.actual_pix = sthread->pix_start - 1;
+	while (++m.actual_pix < sthread->pix_end)
+	{
+		m.pix[0] = m.actual_pix % WIN_WIDTH;
+		m.pix[1] = m.actual_pix / WIN_WIDTH;
+		m.z[0] = (m.pix[0] + sthread->smlx->offset_x * sthread->smlx->zoom \
+				/ 400 - (WIN_WIDTH / 2.0)) / sthread->smlx->zoom;
+		m.z[1] = (m.pix[1] + sthread->smlx->offset_y * sthread->smlx->zoom \
+				/ 400 - (WIN_HEIGHT / 2.0)) / sthread->smlx->zoom;
+		m.tmp[0] = m.z[0];
+		m.tmp[1] = m.z[1];
+		m.iter = -1;
+		while (++m.iter < NB_ITERATION && m.z[0] * m.z[0] + m.z[1] * m.z[1] < 4)
+		{
+			m.tmp[2] = m.z[0];
+			m.z[0] = m.z[0] * m.z[0] - m.z[1] * m.z[1] + m.tmp[0];
+			m.z[1] = 2 * m.tmp[2] * m.z[1] + m.tmp[1];
+		}
+		color_pix(sthread->smlx, m.iter, m.actual_pix);
+	}
+	return (NULL);
+}
+*/

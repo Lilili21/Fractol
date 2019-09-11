@@ -12,13 +12,26 @@
 
 #include "fractol.h"
 
-void	init_complex(double re, double im, t_complex *complex)
+static void	ft_strdl(char **tmp)
+{
+	int		i;
+
+	i = 0;
+	if (tmp)
+	{
+		while (tmp[i])
+			free(tmp[i++]);
+		free(tmp);
+	}
+}
+
+void		init_complex(double re, double im, t_complex *complex)
 {
 	complex->re = re;
 	complex->im = im;
 }
 
-int		whoops(int i)
+int			whoops(int i)
 {
 	if (i == 1)
 		ft_putstr_fd("usage: fract [fractals]\n fractals:\n"
@@ -29,7 +42,7 @@ int		whoops(int i)
 	return (-1);
 }
 
-int		ft_check_name(char *str)
+int			ft_check_name(char *str)
 {
 	if (ft_strequ(str, "Julia") || ft_strequ(str, "Mandelbrot") ||
 		ft_strequ(str, "Burning Ship") || ft_strequ(str, "Mandelbar") ||
@@ -39,21 +52,22 @@ int		ft_check_name(char *str)
 	return (0);
 }
 
-int		ft_check_name2(char *fractol)
+int			ft_check_name2(char *fractol)
 {
 	char	**type;
 	int		i;
 
-	type = (char **)malloc(sizeof(char) * 6 + 1);
 	type = ft_strsplit("Julia Mandelbrot Burning_Ship Mandelbar"
-					" CelticMandelbrot CelticMandelbar", ' ');
-	i = 0;
-	while (type[i])
+					" Celtic_Mandelbrot Celtic_Mandelbar", ' ');
+	i = -1;
+	while (type[++i])
 	{
 		if (ft_strequ(type[i], fractol))
-			return (++i);
-		i++;
+			break ;
 	}
-	free(type);
-	return (-1);
+	ft_strdl(type);
+	if (i >= 0 && i <= 6)
+		return (++i);
+	else
+		return (-1);
 }

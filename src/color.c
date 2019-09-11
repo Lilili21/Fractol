@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <math.h>
 
 char			*color_scheme(int scheme, int color_p)
 {
-	int i;
+	int		i;
+	char	*t;
+	char	*result;
 
 	i = 1;
 	while (color_p >= 10)
@@ -22,15 +25,19 @@ char			*color_scheme(int scheme, int color_p)
 		color_p /= 10;
 		i++;
 	}
+	t = ft_itoa(i);
 	if (scheme == 0)
-		return (ft_strjoin("red ", ft_itoa(i)));
+		result = ft_strjoin("red ", t);
 	else if (scheme == 1)
-		return (ft_strjoin("green ", ft_itoa(i)));
+		result = ft_strjoin("green ", t);
 	else if (scheme == 2)
-		return (ft_strjoin("blue ", ft_itoa(i)));
+		result = ft_strjoin("blue ", t);
 	else if (scheme == 3)
-		return (ft_strjoin("dark ", ft_itoa(i)));
-	return (ft_strjoin("noise ", ft_itoa(i)));
+		result = ft_strjoin("dark ", t);
+	else
+		result = ft_strjoin("noise ", t);
+	free(t);
+	return (result);
 }
 
 static t_color	*color_percent(int color_type)
@@ -75,3 +82,4 @@ int				choose_col(float iter, float max_iter, int color_type, int mad)
 	free(color);
 	return (r << 16 | g << 8 | b);
 }
+
