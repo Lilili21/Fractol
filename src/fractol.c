@@ -66,26 +66,6 @@ static int	count(t_fractol *f, int i)
 	return (++i);
 }
 
-void			fr_create_threads(t_str *str)
-{
-	t_thread	sthreads[NB_THREADS];
-	pthread_t	t[NB_THREADS];
-	int			i;
-	float		length_threads;
-
-	i = -1;
-	length_threads = (WIN_WIDTH * WIN_HEIGHT) / NB_THREADS;
-	while (++i < NB_THREADS || !(i = -1))
-	{
-		sthreads[i].pix_start = i * length_threads;
-		sthreads[i].pix_end = sthreads[i].pix_start + length_threads;
-		pthread_create(&t[i], NULL, fractol(str->fract, str),
-				(void*)&sthreads[i]);
-	}
-	while (++i < NB_THREADS)
-		pthread_join(t[i], NULL);
-}
-/*
 void		*fractol(t_fractol *f, t_str *str)
 {
 	int		i;
@@ -114,36 +94,3 @@ void		*fractol(t_fractol *f, t_str *str)
 	}
 	return (NULL);
 }
-*/
-
-void		*fractol(void *arg)
-{
-	int		i;
-	t_thread			*sthread;
-	t_str
-
-	(f->xy).re = -1;
-	while (++f->xy.re < IMG_W)
-	{
-		f->xy.im = -1;
-		while (++f->xy.im < IMG_H)
-		{
-			if (f->type != 1)
-			{
-				init_complex(f->xy.re * f->zoom.re + f->min.re,
-							 f->xy.im * f->zoom.im + f->min.im, &(f->c));
-				init_complex(0, 0, &(f->z));
-			}
-			else
-				init_complex(f->xy.re * f->zoom.re + f->min.re,
-							 f->xy.im * f->zoom.im + f->min.im, &(f->z));
-			i = 0;
-			while (i < f->iter && CHEKSUM2(f->z.re, f->z.im) < 4)
-				i = count(f, i);
-			put_data(str, (int)(f->xy.re), (int)(f->xy.im),
-					 choose_col(i, f->iter, f->color, f->color_mad));
-		}
-	}
-	return (NULL);
-}
-

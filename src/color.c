@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <math.h>
 
 char			*color_scheme(int scheme, int color_p)
 {
@@ -82,4 +81,3 @@ int				choose_col(float iter, float max_iter, int color_type, int mad)
 	free(color);
 	return (r << 16 | g << 8 | b);
 }
-

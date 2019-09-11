@@ -94,14 +94,6 @@ typedef struct	s_str
 	t_fractol	*fract;
 }				t_str;
 
-/*
-typedef struct		s_thread
-{
-	int				pix_start;
-	int				pix_end;
-	t_str			*str;
-}					t_thread;*/
-
 int				whoops(int i);
 void			init_complex(double re, double im, t_complex *complex);
 int				ft_check_name(char *str);
@@ -109,8 +101,7 @@ int				ft_check_name2(char *fractol);
 int				key_pressed(int keycode, t_str *str);
 int				choose_col(float iter, float max_iter, int color_type, int mad);
 char			*color_scheme(int scheme, int color_p);
-//void			fractol(t_fractol	*f, t_str *str);
-void			*fractol();
+void			fractol(t_fractol	*f, t_str *str);
 void			fr_create_threads(t_str *str);
 void			init_fr(t_fractol *f, int i);
 int				change_fractol(int keycode, t_str *str);

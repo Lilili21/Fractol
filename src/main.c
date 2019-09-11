@@ -12,17 +12,6 @@
 
 #include "fractol.h"
 
-static void 	init_thread()
-{
-	pthread_t thread_id;
-
-	printf("Before Thread\n");
-
-	pthread_join(thread_id, NULL);
-	printf("After Thread\n");
-	exit(0);
-}
-
 static void		init_str(t_str *str, char *fractol)
 {
 	str->fract = (t_fractol *)malloc(sizeof(t_fractol));
@@ -53,7 +42,6 @@ int				main(int argc, char **argv)
 	if (argc != 2 || !ft_check_name(argv[1]))
 		return (whoops(1));
 	init_str(&str, argv[1]);
-	//init_thread(&str);
 	draw_str(str);
 	return (0);
 }
