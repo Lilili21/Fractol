@@ -19,6 +19,12 @@ fcntl.h
 -
 stdio.h
 -
+time.h
+-
+pthread.h
+-
+stddef.h
+-
 
 ../includes/libft.h
 string.h
@@ -30,7 +36,11 @@ unistd.h
 fcntl.h
 -
 
-/Users/gfoote/Project42/fractol/src/main.c
+/Users/gfoote/Project42/fractol/src/draw.c
+fractol.h
+/Users/gfoote/Project42/fractol/src/fractol.h
+
+/Users/gfoote/Project42/fractol/src/threads.c
 fractol.h
 /Users/gfoote/Project42/fractol/src/fractol.h
 

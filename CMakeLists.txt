@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.14)
 project(fractol C)
 
 set(CMAKE_C_STANDARD 11)
@@ -70,15 +70,17 @@ add_executable(fractol
         lib/ft_tolower.c
         lib/ft_toupper.c
         lib/get_next_line.c
-        src/draw.c
         src/color.c
+        src/draw.c
+        src/fractol.c
+        src/khook.c
         src/main.c
-        src/mandelbrot.c
-        src/julia.c)
+        src/mhook.c
+        src/utilise.c
+        src/threads.c)
 
 target_link_libraries(fractol
         "-framework AppKit"
         "-framework OpenGL"
-        "-framework OpenCL"
         mlx
         )

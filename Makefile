@@ -15,7 +15,7 @@ LIB_NAME = libft.a
 FLAGS = -Wall -Wextra -Werror -c -g
 HEADERS = ./includes
 HEADERS_FDF = /usr/local/include
-SRC = main.c draw.c
+SRC = main.c draw.c color.c fractol.c khook.c mhook.c utilise.c
 SRCDIR = src
 SRCS = $(addprefix $(SRCDIR)/, $(SRC))
 OBJ = $(SRC:.c=.o)make

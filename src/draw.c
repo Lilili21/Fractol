@@ -82,10 +82,33 @@ void			draw_commands(t_str *str)
 
 void			draw(t_str *str)
 {
+	int		i;
+	int status;
+	pthread_t 	tids[NB_THREADS];
+	t_str		sstr[NB_THREADS];
+
 	str->map.img = mlx_new_image(str->map.mlx, IMG_W, IMG_H);
 	str->map.data = (int *)mlx_get_data_addr(str->map.img, &(str->map.trash),
 	&(str->map.trash), &(str->map.trash));
-	fractol(str->fract, str);
+	ft_bzero(str->map.data,IMG_W * IMG_H);
+	i = -1;
+	while (++i < NB_THREADS)
+	{
+		ft_memcpy((void *) &sstr[i], (void*)str, sizeof(t_str));
+		sstr[i].intr = i;
+		printf("i = %i\n", sstr[i].intr);
+		pthread_create(&tids[i], NULL, render_quads, (void *)&sstr[i]);
+	}
+	i = -1;
+	while( ++i < NB_THREADS)
+	{
+		status = pthread_join(tids[i], NULL);
+		if (status != 0) {
+			printf("main error: can't join thread, status = %d\n", status);
+			exit(0);
+		}
+		printf("joined with address %i\n", status);
+	}
 	draw_commands(str);
 	mlx_put_image_to_window(str->map.mlx, str->map.win, str->map.img, 400, 0);
 }

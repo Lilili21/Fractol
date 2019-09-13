@@ -280,13 +280,22 @@
 		<Unit filename="/Users/gfoote/Project42/fractol/src/draw.c">
 			<Option target="fractol"/>
 		</Unit>
-		<Unit filename="/Users/gfoote/Project42/fractol/src/julia.c">
+		<Unit filename="/Users/gfoote/Project42/fractol/src/fractol.c">
+			<Option target="fractol"/>
+		</Unit>
+		<Unit filename="/Users/gfoote/Project42/fractol/src/khook.c">
 			<Option target="fractol"/>
 		</Unit>
 		<Unit filename="/Users/gfoote/Project42/fractol/src/main.c">
 			<Option target="fractol"/>
 		</Unit>
-		<Unit filename="/Users/gfoote/Project42/fractol/src/mandelbrot.c">
+		<Unit filename="/Users/gfoote/Project42/fractol/src/mhook.c">
+			<Option target="fractol"/>
+		</Unit>
+		<Unit filename="/Users/gfoote/Project42/fractol/src/threads.c">
+			<Option target="fractol"/>
+		</Unit>
+		<Unit filename="/Users/gfoote/Project42/fractol/src/utilise.c">
 			<Option target="fractol"/>
 		</Unit>
 		<Unit filename="/Users/gfoote/Project42/fractol/CMakeLists.txt">

@@ -68,9 +68,12 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/gfoote/Project42/fractol/lib/get_next_line.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/lib/get_next_line.c.o"
   "/Users/gfoote/Project42/fractol/src/color.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/color.c.o"
   "/Users/gfoote/Project42/fractol/src/draw.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/draw.c.o"
-  "/Users/gfoote/Project42/fractol/src/julia.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/julia.c.o"
+  "/Users/gfoote/Project42/fractol/src/fractol.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/fractol.c.o"
+  "/Users/gfoote/Project42/fractol/src/khook.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/khook.c.o"
   "/Users/gfoote/Project42/fractol/src/main.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/main.c.o"
-  "/Users/gfoote/Project42/fractol/src/mandelbrot.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/mandelbrot.c.o"
+  "/Users/gfoote/Project42/fractol/src/mhook.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/mhook.c.o"
+  "/Users/gfoote/Project42/fractol/src/threads.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/threads.c.o"
+  "/Users/gfoote/Project42/fractol/src/utilise.c" "/Users/gfoote/Project42/fractol/cmake-build-debug/CMakeFiles/fractol.dir/src/utilise.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

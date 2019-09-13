@@ -19,11 +19,13 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <time.h>
 # include <pthread.h>
+# include <stddef.h>
 
 # define WIN_WIDTH 1100
 # define WIN_HEIGHT 600
-# define NB_THREADS 4
+# define NB_THREADS 2
 # define IMG_W 700
 # define IMG_H 600
 # define BUT_ESCAPE 53
@@ -44,12 +46,12 @@
 # define BUT_5 23
 # define BUT_6 22
 # define BUT_SPACE 49
-# define CHEKSUM2(a, b) (a*a + b*b)
-# define CHEKDIF2(a, b) (a*a - b*b)
 # define MOUSE_SC_UP 5
 # define MOUSE_SC_DOWN 4
 # define MOUSE_SC_LEFT 6
 # define MOUSE_SC_RIGHT 7
+# define CHEKSUM2(a, b) (a*a + b*b)
+# define CHEKDIF2(a, b) (a*a - b*b)
 
 typedef struct	s_map
 {
@@ -86,29 +88,58 @@ typedef struct	s_fractol
 	t_complex	z;
 	t_complex	xy;
 	t_complex	zoom;
+
 }				t_fractol;
 
 typedef struct	s_str
 {
 	t_map		map;
 	t_fractol	*fract;
+	t_complex	start;
+	t_complex	finish;
+	int 	intr;
 }				t_str;
 
+/*
+ * utilise.c
+ */
 int				whoops(int i);
 void			init_complex(double re, double im, t_complex *complex);
 int				ft_check_name(char *str);
 int				ft_check_name2(char *fractol);
+
+/*
+ * khook.c
+ */
 int				key_pressed(int keycode, t_str *str);
+
+/*
+ * color.c
+ */
 int				choose_col(float iter, float max_iter, int color_type, int mad);
 char			*color_scheme(int scheme, int color_p);
-void			fractol(t_fractol	*f, t_str *str);
-void			fr_create_threads(t_str *str);
+
+/*
+ * fractol.c
+ */
+void			fractol(t_fractol *f, t_str *str, t_complex start, t_complex finish);
 void			init_fr(t_fractol *f, int i);
 int				change_fractol(int keycode, t_str *str);
+
+/*
+ * mhook.c
+ */
 int				ft_close(void *param);
 int				mouse_pressed(int button, int mousex, int mousey, t_str *str);
 int				motion_notify(int mousex, int mousey, t_str *str);
+
+/*
+ * draw.c
+ */
 void			put_data(t_str *str, int x, int y, int color);
 void			draw(t_str *str);
-
+/*
+ * thread.c
+ */
+void			render_quads(void *args);
 #endif

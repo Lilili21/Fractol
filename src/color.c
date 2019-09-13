@@ -46,9 +46,9 @@ static t_color	*color_percent(int color_type)
 	color = (t_color *)malloc(sizeof(t_color));
 	if (color_type == 4)
 	{
-		color->r_percent = rand() % 20;
-		color->g_percent = rand() % 20;
-		color->b_percent = rand() % 20;
+		color->r_percent = 0.2; //rand() % 20;
+		color->g_percent = 0.2; //rand() % 20;
+		color->b_percent = 0.2; //rand() % 20;
 		return (color);
 	}
 	color->r_percent = (color_type == 3) ? 0.33 : 0;

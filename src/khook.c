@@ -32,7 +32,18 @@ static int	key_esc_del_iter(int keycode, t_str *str)
 
 static int	key_color(int keycode, t_str *str)
 {
-	if (keycode == BUT_LEFT)
+	if (str->fract->color == 4 && keycode == BUT_DOWN)
+	{
+		str->fract->color_mad = 10000000;
+		while (str->fract->color_mad > 10)
+		{
+			str->fract->color_mad /= 10;
+			mlx_clear_window(str->map.mlx, str->map.win);
+			draw(str);
+		}
+		return (0);
+	}
+	else if (keycode == BUT_LEFT)
 		str->fract->color = (str->fract->color == 0) ? 4 : --str->fract->color;
 	else if (keycode == BUT_RIGHT)
 		str->fract->color = (str->fract->color == 4) ? 0 : ++str->fract->color;
