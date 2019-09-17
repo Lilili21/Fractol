@@ -21,11 +21,10 @@
 # include <stdio.h>
 # include <time.h>
 # include <pthread.h>
-# include <stddef.h>
 
 # define WIN_WIDTH 1100
 # define WIN_HEIGHT 600
-# define NB_THREADS 2
+# define NB_THREADS 1
 # define IMG_W 700
 # define IMG_H 600
 # define BUT_ESCAPE 53
@@ -79,8 +78,10 @@ typedef struct	s_fractol
 {
 	int			type;
 	int			iter;
+	int			i;
 	int			color;
 	int			color_mad;
+	int			result_color;
 	int			space_pressed;
 	t_complex	min;
 	t_complex	max;
@@ -88,7 +89,6 @@ typedef struct	s_fractol
 	t_complex	z;
 	t_complex	xy;
 	t_complex	zoom;
-
 }				t_fractol;
 
 typedef struct	s_str
@@ -97,49 +97,23 @@ typedef struct	s_str
 	t_fractol	*fract;
 	t_complex	start;
 	t_complex	finish;
-	int 	intr;
+	int			intr;
 }				t_str;
 
-/*
- * utilise.c
- */
 int				whoops(int i);
 void			init_complex(double re, double im, t_complex *complex);
 int				ft_check_name(char *str);
 int				ft_check_name2(char *fractol);
-
-/*
- * khook.c
- */
 int				key_pressed(int keycode, t_str *str);
-
-/*
- * color.c
- */
 int				choose_col(float iter, float max_iter, int color_type, int mad);
 char			*color_scheme(int scheme, int color_p);
-
-/*
- * fractol.c
- */
-void			fractol(t_fractol *f, t_str *str, t_complex start, t_complex finish);
+void			fractol(t_fractol *f, t_str *str, t_complex st, t_complex fin);
 void			init_fr(t_fractol *f, int i);
 int				change_fractol(int keycode, t_str *str);
-
-/*
- * mhook.c
- */
 int				ft_close(void *param);
 int				mouse_pressed(int button, int mousex, int mousey, t_str *str);
 int				motion_notify(int mousex, int mousey, t_str *str);
-
-/*
- * draw.c
- */
 void			put_data(t_str *str, int x, int y, int color);
 void			draw(t_str *str);
-/*
- * thread.c
- */
-void			render_quads(void *args);
+void			*render_quads(void *args);
 #endif

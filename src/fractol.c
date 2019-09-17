@@ -68,10 +68,7 @@ static int	count(t_fractol *f, int i)
 
 void		fractol(t_fractol *f, t_str *str, t_complex start, t_complex finish)
 {
-	int		i;
-
 	f->xy.re = start.re;
-	//printf("start.re = %lf, finish.re = %lf, start.im = %lf, finish.im = %lf,\n", start.re, finish.re, start.im, finish.im );
 	while (++f->xy.re < finish.re)
 	{
 		f->xy.im = start.im;
@@ -80,17 +77,17 @@ void		fractol(t_fractol *f, t_str *str, t_complex start, t_complex finish)
 			if (f->type != 1)
 			{
 				init_complex(f->xy.re * f->zoom.re + f->min.re,
-							 f->xy.im * f->zoom.im + f->min.im, &(f->c));
+				f->xy.im * f->zoom.im + f->min.im, &(f->c));
 				init_complex(0, 0, &(f->z));
 			}
 			else
 				init_complex(f->xy.re * f->zoom.re + f->min.re,
-							 f->xy.im * f->zoom.im + f->min.im, &(f->z));
-			i = 0;
-			while (i < f->iter && CHEKSUM2(f->z.re, f->z.im) < 4)
-				i = count(f, i);
-			put_data(str, (int)(f->xy.re), (int)(f->xy.im),
-					choose_col(i, f->iter, f->color, f->color_mad));
+				f->xy.im * f->zoom.im + f->min.im, &(f->z));
+			f->i = 0;
+			while (f->i < f->iter && CHEKSUM2(f->z.re, f->z.im) < 4)
+				f->i = count(f, f->i);
+			f->result_color = choose_col(f->i, f->iter, f->color, f->color_mad);
+			put_data(str, (int)(f->xy.re), (int)(f->xy.im), f->result_color);
 		}
 	}
 }

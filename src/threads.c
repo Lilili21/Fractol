@@ -12,8 +12,7 @@
 
 #include "fractol.h"
 
-
-void	 render_quads(void *args)
+void	*render_quads(void *args)
 {
 	t_complex	start;
 	t_complex	finish;
@@ -22,7 +21,8 @@ void	 render_quads(void *args)
 	str = (t_str *)args;
 	start.re = 0;
 	finish.re = IMG_W;
-	start.im =  IMG_H / NB_THREADS * str->intr - 1;
+	start.im = IMG_H / NB_THREADS * str->intr - 1;
 	finish.im = IMG_H / NB_THREADS * (str->intr + 1);
 	fractol(str->fract, str, start, finish);
+	pthread_exit(0);
 }
