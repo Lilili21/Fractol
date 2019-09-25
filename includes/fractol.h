@@ -22,10 +22,10 @@
 # include <time.h>
 # include <pthread.h>
 
-# define WIN_WIDTH 1100
+# define WIN_WIDTH 1000
 # define WIN_HEIGHT 600
 # define NB_THREADS 1
-# define IMG_W 700
+# define IMG_W 600
 # define IMG_H 600
 # define BUT_ESCAPE 53
 # define BUT_DEL 51
@@ -41,9 +41,11 @@
 # define BUT_N_LEFT 86
 # define BUT_N_PLUS 69
 # define BUT_N_MINUS 78
+# define BUT_P 35
 # define BUT_1 18
 # define BUT_5 23
 # define BUT_6 22
+# define BUT_7 26
 # define BUT_SPACE 49
 # define MOUSE_SC_UP 5
 # define MOUSE_SC_DOWN 4
@@ -51,10 +53,11 @@
 # define MOUSE_SC_RIGHT 7
 # define CHEKSUM2(a, b) (a*a + b*b)
 # define CHEKDIF2(a, b) (a*a - b*b)
+# define COLOR(a) sin(a + 1) * 127 + 128
+# define PI 3.14
 
 typedef struct	s_map
 {
-	void		*img;
 	int			*data;
 	void		*mlx;
 	void		*win;
@@ -83,6 +86,8 @@ typedef struct	s_fractol
 	int			color_mad;
 	int			result_color;
 	int			space_pressed;
+	int			ps;
+	long long	ps_time;
 	t_complex	min;
 	t_complex	max;
 	t_complex	c;
@@ -94,10 +99,12 @@ typedef struct	s_fractol
 typedef struct	s_str
 {
 	t_map		map;
-	t_fractol	*fract;
+	t_fractol	fract;
 	t_complex	start;
 	t_complex	finish;
 	int			intr;
+	void		*img;
+	int			*data;
 }				t_str;
 
 int				whoops(int i);
@@ -105,14 +112,17 @@ void			init_complex(double re, double im, t_complex *complex);
 int				ft_check_name(char *str);
 int				ft_check_name2(char *fractol);
 int				key_pressed(int keycode, t_str *str);
-int				choose_col(float iter, float max_iter, int color_type, int mad);
+int				choose_col(t_fractol *f);
 char			*color_scheme(int scheme, int color_p);
 void			fractol(t_fractol *f, t_str *str, t_complex st, t_complex fin);
+void			carpet(t_fractol *f, t_str *str, t_complex st, t_complex fin);
+void			init_carpet(t_fractol *f);
 void			init_fr(t_fractol *f, int i);
 int				change_fractol(int keycode, t_str *str);
 int				ft_close(void *param);
 int				mouse_pressed(int button, int mousex, int mousey, t_str *str);
 int				motion_notify(int mousex, int mousey, t_str *str);
+int				loop_hook(t_str *str);
 void			put_data(t_str *str, int x, int y, int color);
 void			draw(t_str *str);
 void			*render_quads(void *args);

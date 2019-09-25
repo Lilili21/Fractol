@@ -36,7 +36,7 @@ int			whoops(int i)
 	if (i == 1)
 		ft_putstr_fd("usage: fract [fractals]\n fractals:\n"
 		"\t-->Julia\n\t-->Mandelbrot\n\t-->Burning_Ship\n\t-->Mandelbar\n\t"
-		"-->Celtic_Mandelbrot\n\t-->Celtic_Mandelbar\n", 2);
+		"-->Celtic_Mandelbrot\n\t-->Celtic_Mandelbar\n\t-->Carpet\n", 2);
 	else if (i == 2)
 		ft_putstr_fd("malloc problem", 2);
 	return (-1);
@@ -47,7 +47,7 @@ int			ft_check_name(char *str)
 	if (ft_strequ(str, "Julia") || ft_strequ(str, "Mandelbrot") ||
 		ft_strequ(str, "Burning Ship") || ft_strequ(str, "Mandelbar") ||
 		ft_strequ(str, "Celtic Mandelbrot") ||
-		ft_strequ(str, "Celtic Mandelbar"))
+		ft_strequ(str, "Celtic Mandelbar") || ft_strequ(str, "Carpet"))
 		return (1);
 	return (0);
 }
@@ -58,7 +58,7 @@ int			ft_check_name2(char *fractol)
 	int		i;
 
 	type = ft_strsplit("Julia Mandelbrot Burning_Ship Mandelbar"
-					" Celtic_Mandelbrot Celtic_Mandelbar", ' ');
+					" Celtic_Mandelbrot Celtic_Mandelbar Carpet", ' ');
 	i = -1;
 	while (type[++i])
 	{
@@ -66,7 +66,7 @@ int			ft_check_name2(char *fractol)
 			break ;
 	}
 	ft_strdl(type);
-	if (i >= 0 && i <= 6)
+	if (i >= 0 && i <= 7)
 		return (++i);
 	else
 		return (-1);

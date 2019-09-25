@@ -24,7 +24,7 @@ char			*color_scheme(int scheme, int color_p)
 		color_p /= 10;
 		i++;
 	}
-	t = ft_itoa(i);
+	t = (color_p == 0) ? "" : ft_itoa(i);
 	if (scheme == 0)
 		result = ft_strjoin("red ", t);
 	else if (scheme == 1)
@@ -34,8 +34,9 @@ char			*color_scheme(int scheme, int color_p)
 	else if (scheme == 3)
 		result = ft_strjoin("dark ", t);
 	else
-		result = ft_strjoin("noise ", t);
-	free(t);
+		result = ft_strjoin("mad ", t);
+	if (color_p != 0)
+		free(t);
 	return (result);
 }
 
@@ -45,12 +46,7 @@ static t_color	*color_percent(int color_type)
 
 	color = (t_color *)malloc(sizeof(t_color));
 	if (color_type == 4)
-	{
-		color->r_percent = 0.2;
-		color->g_percent = 0.2;
-		color->b_percent = 0.2;
 		return (color);
-	}
 	color->r_percent = (color_type == 3) ? 0.33 : 0;
 	color->g_percent = (color_type == 3) ? 0.33 : 0;
 	color->b_percent = (color_type == 3) ? 0.33 : 0;
@@ -63,7 +59,7 @@ static t_color	*color_percent(int color_type)
 	return (color);
 }
 
-int				choose_col(float iter, float max_iter, int color_type, int mad)
+int				choose_col(t_fractol *f)
 {
 	int			r;
 	int			g;
@@ -71,13 +67,22 @@ int				choose_col(float iter, float max_iter, int color_type, int mad)
 	t_color		*color;
 	double		t;
 
-	if (iter >= max_iter)
+	if (f->i >= f->iter)
 		return (0);
-	color = color_percent(color_type);
-	t = (double)iter / max_iter;
-	r = (int)(mad * t * color->r_percent * 255);
-	g = (int)(mad * t * color->g_percent * 255);
-	b = (int)(mad * t * color->b_percent * 255);
+	color = color_percent(f->color);
+	t = (double)f->i / f->iter;
+	if (f->color != 4)
+	{
+		r = (int)(f->color_mad * t * color->r_percent * 255);
+		g = (int)(f->color_mad * t * color->g_percent * 255);
+		b = (int)(f->color_mad * t * color->b_percent * 255);
+	}
+	else
+	{
+		r = (int)(COLOR(fmod((double)f->ps_time * t * 0.99, 2 * PI)));
+		g = (int)(COLOR(fmod((double)f->ps_time * t * 0.66, 2 * PI)));
+		b = (int)(COLOR(fmod((double)f->ps_time * t * 0.33, 2 * PI)));
+	}
 	free(color);
 	return (r << 16 | g << 8 | b);
 }
