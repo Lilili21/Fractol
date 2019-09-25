@@ -6,7 +6,7 @@
 #    By: swarner <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/21 21:41:29 by swarner           #+#    #+#              #
-#    Updated: 2019/07/11 13:12:21 by gfoote           ###   ########.fr        #
+#    Updated: 2019/09/25 16:05:06 by gfoote           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ $(NAME):
 	@mv $(LIB_OBJ) $(OBJDIR)/
 	@ranlib $(LIB_NAME)
 	@cc -I $(HEADERS) $(SRCS) -L /usr/local/lib/ -lmlx -framework OpenGL -framework OpenCL -framework AppKit -L. -lft -o $(NAME)
-	@# cc -I /usr/local/include main.c -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -framework OpenCL(OpenCl подключить во fractal)
 
 clean:
 	@/bin/rm -f $(OBJ) 
