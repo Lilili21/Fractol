@@ -16,3 +16,5 @@ fractals:
    ![c_mandelbar](https://raw.githubusercontent.com/Lilili21/Fractol/master/img/C_Mandelbar.png)
   -->Carpet
    ![carpet](https://raw.githubusercontent.com/Lilili21/Fractol/master/img/carpet.gif)
+and also on the each fractal you can turn on "psyhodelic colors mode". It means than color changed
+![color](https://raw.githubusercontent.com/Lilili21/Fractol/master/img/colors.gif)
