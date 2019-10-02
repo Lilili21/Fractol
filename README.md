@@ -1,7 +1,18 @@
 # Fractol
-Fractols
 
-fractals:
+This is a program that allows you to draw and modify fractals. The program includes 6 fractals. 
+For each fractal is available:
+1. choice of color spectrum and brightness;
+2. moving fractals on the screen;
+3. zoom from the keyboard and mouse-zoom to the point on the screen;
+4. change the number of iterations;
+5. select fractal from the keyboard;
+Additionally available:
+1. for Julia you can change the parameter C with the mouse;
+2. for all fractals, except Carpet, the option of psychedelic colors is available. This is a sinusoidal color change every second.
+Optimization implemented by threads. You can choose number of threads before compilation.
+
+fractals examples:
   -->Julia
   ![julia](https://raw.githubusercontent.com/Lilili21/Fractol/master/img/julia.gif)
   -->Mandelbrot
